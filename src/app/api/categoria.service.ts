@@ -18,7 +18,7 @@ export class CategoriaService {
 	}
 
 	public update(formData: any): Observable<any> {
-		return this.httpClient.put(`${this.baseUrl}/update`, formData);
+		return this.httpClient.post(`${this.baseUrl}/update`, formData);
 	}
 
 	public delete(id: string): Observable<any> {
