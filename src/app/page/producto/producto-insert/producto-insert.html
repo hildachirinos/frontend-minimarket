@@ -1,0 +1,133 @@
+<div class="container generalBody">
+    <div class="page-header">
+        <h2 class="page-title">Nuevo Producto</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="formProducto">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Código *</label>
+                            <input type="text" formControlName="codigo" class="form-control" placeholder="BEB001">
+                            <small class="text-danger" *ngIf="codigoFb.touched && codigoFb.errors?.['required']">
+                                El código es requerido
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Producto *</label>
+                            <input type="text" formControlName="nombre" class="form-control"
+                                placeholder="Nombre del producto">
+                            <small class="text-danger" *ngIf="nombreFb.touched && nombreFb.errors?.['required']">
+                                El nombre es requerido
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Unidad de Medida *</label>
+                            <select formControlName="unidadMedida" class="form-select">
+                                <option value="UNIDAD">UNIDAD</option>
+                                <option value="PAQUETE">PAQUETE</option>
+                                <option value="CAJA">CAJA</option>
+                                <option value="BOTELLA">BOTELLA</option>
+                                <option value="TARRO">TARRO</option>
+                                <option value="BOLSA">BOLSA</option>
+                                <option value="KILO">KILO</option>
+                                <option value="LITRO">LITRO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea formControlName="descripcion" class="form-control" rows="2"
+                                placeholder="Descripción del producto"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Categoría *</label>
+                            <select formControlName="idCategoria" class="form-select">
+                                <option [ngValue]="null">Seleccione una categoría</option>
+                                <option *ngFor="let cat of listCategoria" [value]="cat.idCategoria">
+                                    {{cat.nombre}}
+                                </option>
+                            </select>
+                            <small class="text-danger"
+                                *ngIf="idCategoriaFb.touched && idCategoriaFb.errors?.['required']">
+                                La categoría es requerida
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Proveedor</label>
+                            <select formControlName="idProveedor" class="form-select">
+                                <option [ngValue]="null">Seleccione un proveedor (opcional)</option>
+                                <option *ngFor="let prov of listProveedor" [value]="prov.idProveedor">
+                                    {{prov.razonSocial}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Precio Compra *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">S/</span>
+                                <input type="number" formControlName="precioCompra" class="form-control" step="0.01"
+                                    min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Precio Venta *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">S/</span>
+                                <input type="number" formControlName="precioVenta" class="form-control" step="0.01"
+                                    min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Stock Inicial</label>
+                            <input type="number" formControlName="stockActual" class="form-control" min="0">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Stock Mínimo</label>
+                            <input type="number" formControlName="stockMinimo" class="form-control" min="0">
+                            <small class="text-muted">Alerta cuando el stock sea menor o igual</small>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary" (click)="insert()">
+                            Registrar Producto
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

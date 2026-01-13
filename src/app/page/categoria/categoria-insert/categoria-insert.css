@@ -1,0 +1,167 @@
+/* ============================================
+   FORM INSERT/EDIT - Elegant Wine Theme
+   ============================================ */
+
+/* Form Container */
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Form Card */
+.form-card {
+    background: var(--pure-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid rgba(139, 21, 56, 0.1);
+}
+
+.form-card .card-header {
+    background: linear-gradient(135deg, var(--wine-red) 0%, var(--wine-red-dark) 100%);
+    color: var(--bone-white);
+    padding: 1.5rem 2rem;
+    border-bottom: 3px solid var(--gold);
+}
+
+.form-card .card-header h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--bone-white);
+}
+
+.form-card .card-body {
+    padding: 2.5rem 2rem;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+/* Form Labels */
+.form-label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-label.required::after {
+    content: ' *';
+    color: var(--danger);
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    border: 2px solid var(--light-gray);
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--charcoal);
+    background: var(--pure-white);
+    transition: all var(--transition-fast);
+}
+
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--wine-red);
+    box-shadow: 0 0 0 4px rgba(139, 21, 56, 0.1);
+    background: var(--bone-white);
+}
+
+.form-control::placeholder {
+    color: var(--medium-gray);
+    opacity: 0.6;
+}
+
+/* Form Check (Checkboxes/Radio) */
+.form-check {
+    padding-left: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-check-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.125rem;
+    border: 2px solid var(--light-gray);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--wine-red);
+    border-color: var(--wine-red);
+}
+
+.form-check-input:focus {
+    border-color: var(--wine-red);
+    box-shadow: 0 0 0 0.2rem rgba(139, 21, 56, 0.15);
+}
+
+.form-check-label {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    cursor: pointer;
+}
+
+/* Form Text (Help text) */
+.form-text {
+    font-size: 0.8rem;
+    color: var(--medium-gray);
+    margin-top: 0.375rem;
+    display: block;
+}
+
+/* Button Group */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(139, 21, 56, 0.1);
+}
+
+.form-actions .btn {
+    min-width: 140px;
+}
+
+/* Row Spacing */
+.row {
+    margin-bottom: 0;
+}
+
+.row>[class*='col-'] {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-card .card-body {
+        padding: 2rem 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}

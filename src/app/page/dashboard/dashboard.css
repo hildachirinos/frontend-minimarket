@@ -1,0 +1,147 @@
+/* ============================================
+   DASHBOARD - Elegant Wine Theme
+   ============================================ */
+
+/* Stat Cards */
+.stat-card {
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--pure-white) 0%, var(--bone-white) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--wine-red) 0%, var(--gold) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-normal);
+}
+
+.stat-card:hover::before {
+    transform: scaleX(1);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--wine-red);
+}
+
+.stat-card .card-body {
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: grayscale(0.2);
+    transition: all var(--transition-normal);
+}
+
+.stat-card:hover .stat-icon {
+    transform: scale(1.2) rotate(5deg);
+    filter: grayscale(0);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--wine-red);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Specific Card Colors */
+.stat-productos {
+    background: linear-gradient(135deg, #FFF5F7 0%, var(--bone-white) 100%);
+}
+
+.stat-categorias {
+    background: linear-gradient(135deg, #FFF9E6 0%, var(--bone-white) 100%);
+}
+
+.stat-proveedores {
+    background: linear-gradient(135deg, #F5F5F5 0%, var(--bone-white) 100%);
+}
+
+.stat-alertas {
+    background: linear-gradient(135deg, #FFE5E5 0%, var(--bone-white) 100%);
+}
+
+.stat-alertas .stat-number {
+    color: var(--danger);
+}
+
+/* Quick Actions */
+.d-flex.gap-3 {
+    gap: 1rem !important;
+}
+
+.d-flex.gap-3 .btn {
+    flex: 0 0 auto;
+}
+
+/* Stock Alerts Table */
+.table-warning {
+    background-color: rgba(184, 134, 11, 0.1) !important;
+}
+
+.table-warning:hover {
+    background-color: rgba(184, 134, 11, 0.15) !important;
+}
+
+.border-warning {
+    border-color: var(--warning) !important;
+    border-width: 2px !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, var(--warning-light) 100%) !important;
+    color: var(--bone-white) !important;
+}
+
+.border-success {
+    border-color: var(--success) !important;
+    border-width: 2px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card .card-body {
+        padding: 1.5rem 1rem;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .d-flex.gap-3 {
+        flex-direction: column;
+    }
+
+    .d-flex.gap-3 .btn {
+        width: 100%;
+    }
+}

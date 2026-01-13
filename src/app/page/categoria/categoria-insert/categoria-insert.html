@@ -1,0 +1,44 @@
+<div class="container generalBody">
+    <div class="page-header">
+        <h2 class="page-title">Nueva Categoría</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="formCategoria">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre de la Categoría *</label>
+                            <input type="text" formControlName="nombre" class="form-control"
+                                placeholder="Ej: Bebidas, Snacks, Lácteos">
+                            <small class="text-danger" *ngIf="nombreFb.touched && nombreFb.errors?.['required']">
+                                El nombre es requerido
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <input type="text" formControlName="descripcion" class="form-control"
+                                placeholder="Descripción opcional de la categoría">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary" (click)="insert()">
+                            Registrar Categoría
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

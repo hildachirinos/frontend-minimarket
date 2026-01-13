@@ -1,0 +1,56 @@
+<header class="site-header" *ngIf="isLoggedIn()">
+	<div class="container">
+		<a class="brand" routerLink="/dashboard" aria-label="Inicio">
+			<span class="brand-logo">🛒 MiniMarket</span>
+		</a>
+
+		<input id="nav-toggle" type="checkbox" class="nav-toggle" aria-hidden="true" />
+
+		<label for="nav-toggle" class="nav-toggle-label" aria-hidden="false" aria-controls="main-nav"
+			aria-expanded="false">
+			<span class="hamburger"></span>
+		</label>
+
+		<nav id="main-nav" class="nav" role="navigation">
+			<ul class="nav-list">
+				<li class="nav-item"><a class="nav-link" routerLink="/dashboard">Inicio</a></li>
+
+				<li class="nav-item nav-item--has-sub" *ngIf="authService.canViewProducts()">
+					<a class="nav-link" href="#" (click)="$event.preventDefault()">Productos ▾</a>
+					<ul class="sub-list">
+						<li><a class="sub-link" routerLink="/producto/list">Ver Productos</a></li>
+						<li *ngIf="authService.canManageProducts()"><a class="sub-link"
+								routerLink="/producto/insert">Nuevo Producto</a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item--has-sub" *ngIf="authService.canManageInventory()">
+					<a class="nav-link" href="#" (click)="$event.preventDefault()">Inventario ▾</a>
+					<ul class="sub-list">
+						<li><a class="sub-link" routerLink="/inventario/movimientos">Movimientos</a></li>
+						<li><a class="sub-link" routerLink="/inventario/entrada">Entrada de Stock</a></li>
+						<li><a class="sub-link" routerLink="/inventario/salida">Salida de Stock</a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item--has-sub" *ngIf="authService.canManageCatalogs()">
+					<a class="nav-link" href="#" (click)="$event.preventDefault()">Catálogos ▾</a>
+					<ul class="sub-list">
+						<li><a class="sub-link" routerLink="/categoria/list">Categorías</a></li>
+						<li><a class="sub-link" routerLink="/proveedor/list">Proveedores</a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item--has-sub user-menu">
+					<a class="nav-link user-name" href="#" (click)="$event.preventDefault()">👤 {{getUserNombre()}}
+						<span class="user-role">({{getUserRole()}})</span> ▾</a>
+					<ul class="sub-list">
+						<li><a class="sub-link text-danger" href="#" (click)="logout(); $event.preventDefault()">Cerrar
+								sesión</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<router-outlet />

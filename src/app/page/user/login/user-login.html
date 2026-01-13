@@ -1,0 +1,32 @@
+<div class="auth-viewport">
+	<section class="auth-card">
+		<header class="auth-card__header">
+			<h2 class="auth-card__title">🛒 MiniMarket</h2>
+			<p class="auth-card__subtitle">Sistema de Inventario</p>
+		</header>
+
+		<form [formGroup]="formUser" class="auth-form">
+			<div class="auth-form__group">
+				<label class="auth-form__label">Usuario</label>
+				<input type="text" formControlName="userName" class="auth-form__input" placeholder="Ingrese su usuario"
+					required>
+			</div>
+
+			<div class="auth-form__group">
+				<label class="auth-form__label">Contraseña</label>
+				<input type="password" formControlName="password" class="auth-form__input" placeholder="••••••••"
+					required>
+			</div>
+
+			<button type="button" class="auth-form__submit-btn" (click)="sendFormLogin()">
+				Iniciar Sesión
+			</button>
+		</form>
+
+		<footer class="auth-card__footer">
+			<p class="auth-card__hint">Usuarios de prueba: <strong>admin</strong>, <strong>vendedor</strong>,
+				<strong>almacen</strong></p>
+			<p class="auth-card__hint">Contraseña: <strong>123456</strong></p>
+		</footer>
+	</section>
+</div>

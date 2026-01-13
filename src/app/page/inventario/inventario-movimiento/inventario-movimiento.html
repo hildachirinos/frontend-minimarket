@@ -1,0 +1,96 @@
+<div class="container generalBody">
+    <div class="page-header">
+        <h2 class="page-title">Movimientos de Inventario</h2>
+        <div>
+            <button type="button" class="btn btn-success me-2" (click)="goToEntrada()">
+                Nueva Entrada
+            </button>
+            <button type="button" class="btn btn-danger" (click)="goToSalida()">
+                Nueva Salida
+            </button>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body py-2">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn"
+                    [ngClass]="filtroActual === 'todos' ? 'btn-primary' : 'btn-outline-primary'"
+                    (click)="filtrarTodos()">
+                    Todos
+                </button>
+                <button type="button" class="btn"
+                    [ngClass]="filtroActual === 'entradas' ? 'btn-success' : 'btn-outline-success'"
+                    (click)="filtrarEntradas()">
+                    Entradas
+                </button>
+                <button type="button" class="btn"
+                    [ngClass]="filtroActual === 'salidas' ? 'btn-danger' : 'btn-outline-danger'"
+                    (click)="filtrarSalidas()">
+                    Salidas
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Producto</th>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-center">Stock Anterior</th>
+                            <th class="text-center">Stock Resultante</th>
+                            <th>Motivo</th>
+                            <th>Documento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listMovimiento">
+                            <td>
+                                <small>{{item.createdAt | dateFormat:'fullDate'}}</small>
+                            </td>
+                            <td>
+                                <span class="badge"
+                                    [ngClass]="item.tipoMovimiento === 'ENTRADA' ? 'bg-success' : 'bg-danger'">
+                                    {{item.tipoMovimiento}}
+                                </span>
+                            </td>
+                            <td>
+                                <strong>{{item.nombreProducto}}</strong>
+                                <div class="text-muted small">{{item.codigoProducto}}</div>
+                            </td>
+                            <td class="text-center">
+                                <span class="fw-bold"
+                                    [ngClass]="item.tipoMovimiento === 'ENTRADA' ? 'text-success' : 'text-danger'">
+                                    {{item.tipoMovimiento === 'ENTRADA' ? '+' : '-'}}{{item.cantidad}}
+                                </span>
+                            </td>
+                            <td class="text-center">{{item.stockAnterior}}</td>
+                            <td class="text-center">
+                                <strong>{{item.stockResultante}}</strong>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">{{item.motivo}}</span>
+                                <div class="text-muted small" *ngIf="item.observacion">{{item.observacion}}</div>
+                            </td>
+                            <td>
+                                <code *ngIf="item.documentoReferencia">{{item.documentoReferencia}}</code>
+                                <span *ngIf="!item.documentoReferencia" class="text-muted">-</span>
+                            </td>
+                        </tr>
+                        <tr *ngIf="listMovimiento.length === 0">
+                            <td colspan="8" class="text-center text-muted py-4">
+                                No hay movimientos registrados
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="container generalBody">
+    <div class="page-header">
+        <h2 class="page-title">Dashboard - Sistema de Inventario Minimarket</h2>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-3" *ngIf="authService.canViewProducts()">
+            <div class="card stat-card stat-productos" (click)="goToProductos()">
+                <div class="card-body">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-number">{{totalProductos}}</div>
+                    <div class="stat-label">Productos Activos</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="authService.canManageCatalogs()">
+            <div class="card stat-card stat-categorias" (click)="goToCategorias()">
+                <div class="card-body">
+                    <div class="stat-icon">🏷️</div>
+                    <div class="stat-number">{{totalCategorias}}</div>
+                    <div class="stat-label">Categorías</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="authService.canManageCatalogs()">
+            <div class="card stat-card stat-proveedores" (click)="goToProveedores()">
+                <div class="card-body">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-number">{{totalProveedores}}</div>
+                    <div class="stat-label">Proveedores</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3" *ngIf="authService.canManageInventory()">
+            <div class="card stat-card stat-alertas" (click)="goToMovimientos()">
+                <div class="card-body">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-number">{{productosStockBajo.length}}</div>
+                    <div class="stat-label">Productos Stock Bajo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <strong>Acciones Rápidas</strong>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a *ngIf="authService.canViewProducts()" routerLink="/producto/list" class="btn btn-info">📋 Ver
+                            Catálogo de Productos</a>
+
+                        <a *ngIf="authService.canManageProducts()" routerLink="/producto/insert"
+                            class="btn btn-primary">➕ Nuevo Producto</a>
+                        <a *ngIf="authService.canManageInventory()" routerLink="/inventario/entrada"
+                            class="btn btn-success">📥 Entrada de Inventario</a>
+                        <a *ngIf="authService.canManageInventory()" routerLink="/inventario/salida"
+                            class="btn btn-danger">📤 Salida de Inventario</a>
+                        <a *ngIf="authService.canManageInventory()" routerLink="/inventario/movimientos"
+                            class="btn btn-outline-dark">📋 Ver Movimientos</a>
+
+                        <a *ngIf="authService.canManageCatalogs()" routerLink="/categoria/insert"
+                            class="btn btn-outline-primary">🏷️ Nueva Categoría</a>
+                        <a *ngIf="authService.canManageCatalogs()" routerLink="/proveedor/insert"
+                            class="btn btn-outline-secondary">🏢 Nuevo Proveedor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="authService.canManageInventory() && productosStockBajo.length > 0">
+        <div class="col-md-12">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <strong>⚠️ Productos con Stock Bajo - Requieren Reposición</strong>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th class="text-center">Stock Actual</th>
+                                    <th class="text-center">Stock Mínimo</th>
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of productosStockBajo" class="table-warning">
+                                    <td><code>{{item.codigo}}</code></td>
+                                    <td><strong>{{item.nombre}}</strong></td>
+                                    <td>{{item.nombreCategoria}}</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-danger">{{item.stockActual}}</span>
+                                    </td>
+                                    <td class="text-center">{{item.stockMinimo}}</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm btn-success"
+                                            (click)="registrarEntrada(item.idProducto)">
+                                            Reponer Stock
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="authService.canManageInventory() && productosStockBajo.length === 0">
+        <div class="col-md-12">
+            <div class="card border-success">
+                <div class="card-body text-center py-4">
+                    <div class="fs-1 mb-2">✅</div>
+                    <h5 class="text-success mb-0">Todos los productos tienen stock suficiente</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

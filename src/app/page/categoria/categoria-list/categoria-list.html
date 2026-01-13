@@ -1,0 +1,55 @@
+<div class="container generalBody">
+	<div class="page-header">
+		<h2 class="page-title">Gestión de Categorías</h2>
+		<button type="button" class="btn btn-primary" (click)="goToInsert()">
+			<i class="bi bi-plus-lg"></i> Nueva Categoría
+		</button>
+	</div>
+	
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th>Nombre</th>
+							<th>Descripción</th>
+							<th>Estado</th>
+							<th>Productos</th>
+							<th class="text-center">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of listCategoria">
+							<td>
+								<strong>{{item.nombre}}</strong>
+							</td>
+							<td>{{item.descripcion || 'Sin descripción'}}</td>
+							<td>
+								<span class="badge" [ngClass]="item.activo ? 'bg-success' : 'bg-secondary'">
+									{{item.activo ? 'Activo' : 'Inactivo'}}
+								</span>
+							</td>
+							<td>
+								<span class="badge bg-info">{{item.cantidadProductos}} productos</span>
+							</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-sm btn-outline-primary me-1" (click)="editCategoria(item.idCategoria)">
+									Editar
+								</button>
+								<button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteCategoria(item.idCategoria)">
+									Eliminar
+								</button>
+							</td>
+						</tr>
+						<tr *ngIf="listCategoria.length === 0">
+							<td colspan="5" class="text-center text-muted py-4">
+								No hay categorías registradas
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

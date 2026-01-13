@@ -1,0 +1,114 @@
+<div class="container generalBody">
+    <div class="page-header">
+        <h2 class="page-title">
+            <span class="badge bg-success me-2">ENTRADA</span>
+            Registrar Ingreso de Productos
+        </h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="formMovimiento">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Producto *</label>
+                                    <select formControlName="idProducto" class="form-select"
+                                        (change)="onProductoChange()">
+                                        <option [ngValue]="null">Seleccione un producto</option>
+                                        <option *ngFor="let prod of listProducto" [value]="prod.idProducto">
+                                            {{prod.codigo}} - {{prod.nombre}}
+                                        </option>
+                                    </select>
+                                    <small class="text-danger"
+                                        *ngIf="idProductoFb.touched && idProductoFb.errors?.['required']">
+                                        Debe seleccionar un producto
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Cantidad *</label>
+                                    <input type="number" formControlName="cantidad" class="form-control" min="1">
+                                    <small class="text-danger" *ngIf="cantidadFb.touched && cantidadFb.errors?.['min']">
+                                        La cantidad debe ser mayor a 0
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Motivo *</label>
+                                    <select formControlName="motivo" class="form-select">
+                                        <option value="COMPRA">Compra</option>
+                                        <option value="REPOSICION">Reposición</option>
+                                        <option value="DEVOLUCION_CLIENTE">Devolución de Cliente</option>
+                                        <option value="AJUSTE">Ajuste de Inventario</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Documento de Referencia</label>
+                                    <input type="text" formControlName="documentoReferencia" class="form-control"
+                                        placeholder="FAC-001-0001">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Observación</label>
+                                    <textarea formControlName="observacion" class="form-control" rows="2"
+                                        placeholder="Notas adicionales sobre la entrada"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+                                    Cancelar
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button type="button" class="btn btn-success" (click)="registrar()">
+                                    Registrar Entrada
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" *ngIf="productoSeleccionado">
+                <div class="card-header bg-light">
+                    <strong>Información del Producto</strong>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>Código:</strong> {{productoSeleccionado.codigo}}</p>
+                    <p class="mb-2"><strong>Nombre:</strong> {{productoSeleccionado.nombre}}</p>
+                    <p class="mb-2"><strong>Categoría:</strong> {{productoSeleccionado.nombreCategoria}}</p>
+                    <hr>
+                    <p class="mb-2 fs-5">
+                        <strong>Stock Actual:</strong>
+                        <span class="badge bg-primary fs-6">{{productoSeleccionado.stockActual}}</span>
+                    </p>
+                    <p class="mb-0 text-muted small">
+                        Stock mínimo: {{productoSeleccionado.stockMinimo}}
+                    </p>
+                </div>
+            </div>
+            <div class="card" *ngIf="!productoSeleccionado">
+                <div class="card-body text-center text-muted">
+                    <p class="mb-0">Seleccione un producto para ver su información</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

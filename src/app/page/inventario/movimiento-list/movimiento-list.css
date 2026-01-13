@@ -1,0 +1,84 @@
+/* ============================================
+   INVENTARIO MOVIMIENTOS - Elegant Wine Theme
+   ============================================ */
+
+/* Table Styles */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table tbody tr {
+    background: var(--pure-white);
+    transition: all var(--transition-fast);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(139, 21, 56, 0.05);
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid rgba(139, 21, 56, 0.08);
+}
+
+/* Movement Type Badges */
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.5em 0.8em;
+}
+
+.bg-success {
+    background-color: var(--success) !important;
+    box-shadow: 0 2px 4px rgba(45, 95, 63, 0.2);
+}
+
+.bg-danger {
+    background-color: var(--danger) !important;
+    box-shadow: 0 2px 4px rgba(139, 21, 56, 0.2);
+}
+
+/* Product Info */
+.table strong {
+    color: var(--black);
+    font-weight: 600;
+}
+
+.table code {
+    background: rgba(139, 21, 56, 0.1);
+    color: var(--wine-red);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* Quantity Styling */
+.fw-bold {
+    font-weight: 700 !important;
+    font-size: 1.1rem;
+}
+
+.text-success.fw-bold {
+    color: var(--success) !important;
+}
+
+.text-danger.fw-bold {
+    color: var(--danger) !important;
+}
+
+/* Date */
+.table td:last-child {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+}
+
+/* Filters/Search Area (if exists) */
+.filters {
+    background: var(--bone-white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(139, 21, 56, 0.1);
+}

@@ -1,0 +1,90 @@
+<div class="container generalBody">
+    <div class="page-header">
+        <h2 class="page-title">
+            <span *ngIf="authService.canManageProducts()">Gestión de Productos</span>
+            <span *ngIf="!authService.canManageProducts()">Catálogo de Productos</span>
+        </h2>
+        <button *ngIf="authService.canManageProducts()" type="button" class="btn btn-primary" (click)="goToInsert()">
+            <i class="bi bi-plus-lg"></i> Nuevo Producto
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th class="text-end">Precio Venta</th>
+                            <th class="text-center">Stock</th>
+                            <th>Estado</th>
+                            <th *ngIf="authService.canManageProducts() || authService.canManageInventory()"
+                                class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listProducto" [ngClass]="{'table-warning': item.stockBajo}">
+                            <td>
+                                <code>{{item.codigo}}</code>
+                            </td>
+                            <td>
+                                <strong>{{item.nombre}}</strong>
+                                <div class="text-muted small">{{item.nombreProveedor || 'Sin proveedor'}}</div>
+                            </td>
+                            <td>
+                                <span class="badge bg-info">{{item.nombreCategoria}}</span>
+                            </td>
+                            <td class="text-end">
+                                <strong>S/ {{item.precioVenta | number:'1.2-2'}}</strong>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge" [ngClass]="{
+									'bg-danger': item.stockActual <= item.stockMinimo,
+									'bg-warning text-dark': item.stockActual > item.stockMinimo && item.stockActual <= item.stockMinimo * 2,
+									'bg-success': item.stockActual > item.stockMinimo * 2
+								}">
+                                    {{item.stockActual}} {{item.unidadMedida}}
+                                </span>
+                                <div class="text-muted small" *ngIf="item.stockActual <= item.stockMinimo">
+                                    Mín: {{item.stockMinimo}}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge" [ngClass]="item.activo ? 'bg-success' : 'bg-secondary'">
+                                    {{item.activo ? 'Activo' : 'Inactivo'}}
+                                </span>
+                            </td>
+                            <td *ngIf="authService.canManageProducts() || authService.canManageInventory()"
+                                class="text-center">
+                                <div *ngIf="authService.canManageInventory()" class="btn-group btn-group-sm"
+                                    role="group">
+                                    <button type="button" class="btn btn-outline-success"
+                                        (click)="registrarEntrada(item.idProducto)" title="Entrada">
+                                        +
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        (click)="registrarSalida(item.idProducto)" title="Salida">
+                                        -
+                                    </button>
+                                </div>
+                                <button *ngIf="authService.canManageProducts()" type="button"
+                                    class="btn btn-sm btn-outline-primary ms-1" (click)="editProducto(item.idProducto)">
+                                    Editar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="listProducto.length === 0">
+                            <td [attr.colspan]="authService.canManageProducts() || authService.canManageInventory() ? 7 : 6"
+                                class="text-center text-muted py-4">
+                                No hay productos registrados
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

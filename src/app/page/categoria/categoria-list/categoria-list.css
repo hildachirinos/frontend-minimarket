@@ -1,0 +1,54 @@
+/* ============================================
+   CATEGORIA LIST - Elegant Wine Theme
+   ============================================ */
+
+/* Table Styles - Matching Product List */
+.table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+.table tbody tr {
+	background: var(--pure-white);
+	transition: all var(--transition-fast);
+}
+
+.table tbody tr:hover {
+	background: linear-gradient(90deg, rgba(139, 21, 56, 0.03) 0%, var(--pure-white) 100%);
+	box-shadow: var(--shadow-sm);
+}
+
+.table td {
+	vertical-align: middle;
+	padding: 1rem 0.75rem;
+	border-bottom: 1px solid rgba(139, 21, 56, 0.08);
+}
+
+.table strong {
+	color: var(--black);
+	font-weight: 600;
+	font-size: 1rem;
+}
+
+.table .text-muted {
+	font-size: 0.85rem;
+	color: var(--medium-gray);
+}
+
+/* Badge for Active Status */
+.badge {
+	padding: 0.4rem 0.8rem;
+	font-size: 0.75rem;
+	letter-spacing: 0.5px;
+}
+
+/* Actions */
+.btn-sm {
+	margin: 0 0.2rem;
+}
+
+/* Empty State */
+.text-muted.py-4 {
+	color: var(--medium-gray) !important;
+	font-style: italic;
+}

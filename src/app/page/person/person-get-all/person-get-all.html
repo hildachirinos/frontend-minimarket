@@ -1,0 +1,32 @@
+<div class="container generalBody">
+	<div class="card">
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>DNI</th>
+						<th>Nombre completo</th>
+						<th>Género</th>
+						<th>Fecha de nacimiento</th>
+						<th>Fecha de registro</th>
+						<th>Fecha ult. modif.</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of listPerson">
+						<td>{{item.dni}}</td>
+						<td>
+							<div>{{item.firstName}} {{item.surName}}</div>
+							<div *ngFor="let value of item.listPhone" style="color: #999999;font-weight: bold;"><small><span style="color: #000000;text-decoration: underline;">{{value.provider}}</span>: {{value.number}}</small></div>
+							<div *ngIf="item.listPhone.length == 0" style="color: red;font-weight: bold;"><small>Sin números registrados.</small></div>
+						</td>
+						<td>{{item.gender ? 'Masculino' : 'Femenino'}}</td>
+						<td>{{item.birthDate | dateFormat}}</td>
+						<td>{{item.createdAt | dateFormat:'fullDate'}}</td>
+						<td>{{item.updatedAt | dateFormat:'fullDate'}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

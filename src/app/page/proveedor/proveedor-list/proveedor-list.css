@@ -1,0 +1,57 @@
+/* ============================================
+   PROVEEDOR LIST - Elegant Wine Theme
+   ============================================ */
+
+/* Table Styles - Matching standard */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table tbody tr {
+    background: var(--pure-white);
+    transition: all var(--transition-fast);
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(90deg, rgba(139, 21, 56, 0.03) 0%, var(--pure-white) 100%);
+    box-shadow: var(--shadow-sm);
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid rgba(139, 21, 56, 0.08);
+}
+
+/* RUC Styling */
+.table code {
+    background: rgba(139, 21, 56, 0.1);
+    color: var(--wine-red);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.table strong {
+    color: var(--black);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.text-muted.small {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+/* Contact Info */
+.contact-info {
+    font-size: 0.9rem;
+    color: var(--charcoal);
+}
+
+/* Actions */
+.btn-sm {
+    margin: 0 0.2rem;
+}

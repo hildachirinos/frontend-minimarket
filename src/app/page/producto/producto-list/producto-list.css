@@ -1,0 +1,68 @@
+/* ============================================
+   PRODUCT LIST - Elegant Wine Theme
+   ============================================ */
+
+/* Table Enhancements */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table tbody tr {
+    background: var(--pure-white);
+    transition: all var(--transition-fast);
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(90deg, rgba(139, 21, 56, 0.03) 0%, var(--pure-white) 100%);
+    box-shadow: var(--shadow-sm);
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid rgba(139, 21, 56, 0.08);
+}
+
+.table code {
+    background: rgba(139, 21, 56, 0.1);
+    color: var(--wine-red);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.table strong {
+    color: var(--black);
+    font-weight: 600;
+}
+
+.table .text-muted.small {
+    font-size: 0.8rem;
+    color: var(--medium-gray);
+}
+
+/* Button Groups */
+.btn-group-sm .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.btn-sm {
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8rem;
+}
+
+/* Badge Enhancements */
+.badge.bg-info {
+    background: linear-gradient(135deg, var(--info) 0%, var(--dark-gray) 100%) !important;
+}
+
+/* Responsive Table */
+@media (max-width: 992px) {
+    .table-responsive {
+        border-radius: 12px;
+        overflow-x: auto;
+    }
+}
