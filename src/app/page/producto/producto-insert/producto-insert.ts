@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../api/producto.service';
 import { CategoriaService } from '../../../api/categoria.service';
@@ -20,6 +20,8 @@ export class ProductoInsert implements OnInit {
     formProducto: FormGroup;
     listCategoria: any[] = [];
     listProveedor: any[] = [];
+    productoId: string | null = null;
+    isEditMode: boolean = false;
 
     get codigoFb() { return this.formProducto.controls['codigo']; }
     get nombreFb() { return this.formProducto.controls['nombre']; }
@@ -37,7 +39,8 @@ export class ProductoInsert implements OnInit {
         private productoService: ProductoService,
         private categoriaService: CategoriaService,
         private proveedorService: ProveedorService,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {
         this.formProducto = this.formBuilder.group({
             'codigo': [null, [Validators.required, Validators.maxLength(50)]],
@@ -56,6 +59,34 @@ export class ProductoInsert implements OnInit {
     ngOnInit(): void {
         this.loadCategorias();
         this.loadProveedores();
+        this.productoId = this.activatedRoute.snapshot.paramMap.get('id');
+        if (this.productoId) {
+            this.isEditMode = true;
+            this.loadProducto();
+        }
+    }
+
+    loadProducto(): void {
+        this.productoService.getById(this.productoId!).subscribe({
+            next: (response: any) => {
+                this.formProducto.patchValue({
+                    codigo: response.codigo,
+                    nombre: response.nombre,
+                    descripcion: response.descripcion,
+                    idCategoria: response.idCategoria,
+                    idProveedor: response.idProveedor,
+                    precioCompra: response.precioCompra,
+                    precioVenta: response.precioVenta,
+                    stockActual: response.stockActual,
+                    stockMinimo: response.stockMinimo,
+                    unidadMedida: response.unidadMedida
+                });
+            },
+            error: (error: any) => {
+                console.log(error);
+                alert('Error al cargar los datos del producto');
+            }
+        });
     }
 
     loadCategorias(): void {
@@ -80,13 +111,17 @@ export class ProductoInsert implements OnInit {
         });
     }
 
-    public insert(): void {
+    public save(): void {
         if (this.formProducto.invalid) {
             alert('Complete los campos requeridos correctamente');
             return;
         }
 
         let formData = new FormData();
+
+        if (this.isEditMode) {
+            formData.append('dto.producto.id', this.productoId!);
+        }
 
         formData.append('dto.producto.codigo', this.codigoFb.value);
         formData.append('dto.producto.nombre', this.nombreFb.value);
@@ -99,7 +134,11 @@ export class ProductoInsert implements OnInit {
         formData.append('dto.producto.stockMinimo', this.stockMinimoFb.value);
         formData.append('dto.producto.unidadMedida', this.unidadMedidaFb.value);
 
-        this.productoService.insert(formData).subscribe({
+        const request = this.isEditMode
+            ? this.productoService.update(formData)
+            : this.productoService.insert(formData);
+
+        request.subscribe({
             next: (response: any) => {
                 if (response.type === 'success') {
                     alert(response.listMessage[0]);
@@ -110,7 +149,7 @@ export class ProductoInsert implements OnInit {
             },
             error: (error: any) => {
                 console.log(error);
-                alert('Error al registrar el producto');
+                alert(`Error al ${this.isEditMode ? 'actualizar' : 'registrar'} el producto`);
             }
         });
     }

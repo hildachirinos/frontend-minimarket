@@ -1,6 +1,6 @@
 <div class="container generalBody">
     <div class="page-header">
-        <h2 class="page-title">Nuevo Proveedor</h2>
+        <h2 class="page-title">{{ isEditMode ? 'Editar' : 'Nuevo' }} Proveedor</h2>
     </div>
 
     <div class="card">
@@ -71,8 +71,8 @@
                         </button>
                     </div>
                     <div class="col-md-6 text-end">
-                        <button type="button" class="btn btn-primary" (click)="insert()">
-                            Registrar Proveedor
+                        <button type="button" class="btn btn-primary" (click)="save()">
+                            {{ isEditMode ? 'Guardar Cambios' : 'Registrar Proveedor' }}
                         </button>
                     </div>
                 </div>

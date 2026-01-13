@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProveedorService } from '../../../api/proveedor.service';
 
@@ -14,8 +14,10 @@ import { ProveedorService } from '../../../api/proveedor.service';
     styleUrl: './proveedor-insert.css'
 })
 
-export class ProveedorInsert {
+export class ProveedorInsert implements OnInit {
     formProveedor: FormGroup;
+    proveedorId: string | null = null;
+    isEditMode: boolean = false;
 
     get rucFb() { return this.formProveedor.controls['ruc']; }
     get razonSocialFb() { return this.formProveedor.controls['razonSocial']; }
@@ -27,7 +29,8 @@ export class ProveedorInsert {
     constructor(
         private formBuilder: FormBuilder,
         private proveedorService: ProveedorService,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {
         this.formProveedor = this.formBuilder.group({
             'ruc': [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
@@ -39,13 +42,44 @@ export class ProveedorInsert {
         });
     }
 
-    public insert(): void {
+    ngOnInit(): void {
+        this.proveedorId = this.activatedRoute.snapshot.paramMap.get('id');
+        if (this.proveedorId) {
+            this.isEditMode = true;
+            this.loadProveedor();
+        }
+    }
+
+    loadProveedor(): void {
+        this.proveedorService.getById(this.proveedorId!).subscribe({
+            next: (response: any) => {
+                this.formProveedor.patchValue({
+                    ruc: response.ruc,
+                    razonSocial: response.razonSocial,
+                    direccion: response.direccion,
+                    telefono: response.telefono,
+                    email: response.email,
+                    contacto: response.contacto
+                });
+            },
+            error: (error: any) => {
+                console.log(error);
+                alert('Error al cargar los datos del proveedor');
+            }
+        });
+    }
+
+    public save(): void {
         if (this.formProveedor.invalid) {
             alert('Complete los campos requeridos correctamente');
             return;
         }
 
         let formData = new FormData();
+
+        if (this.isEditMode) {
+            formData.append('dto.proveedor.id', this.proveedorId!);
+        }
 
         formData.append('dto.proveedor.ruc', this.rucFb.value);
         formData.append('dto.proveedor.razonSocial', this.razonSocialFb.value);
@@ -54,7 +88,11 @@ export class ProveedorInsert {
         formData.append('dto.proveedor.email', this.emailFb.value || '');
         formData.append('dto.proveedor.contacto', this.contactoFb.value || '');
 
-        this.proveedorService.insert(formData).subscribe({
+        const request = this.isEditMode
+            ? this.proveedorService.update(formData)
+            : this.proveedorService.insert(formData);
+
+        request.subscribe({
             next: (response: any) => {
                 if (response.type === 'success') {
                     alert(response.listMessage[0]);
@@ -65,7 +103,7 @@ export class ProveedorInsert {
             },
             error: (error: any) => {
                 console.log(error);
-                alert('Error al registrar el proveedor');
+                alert(`Error al ${this.isEditMode ? 'actualizar' : 'registrar'} el proveedor`);
             }
         });
     }

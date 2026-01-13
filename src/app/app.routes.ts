@@ -45,6 +45,11 @@ export const routes: Routes = [
 				component: CategoriaInsert,
 				canActivate: [roleGuard(['ADMIN'])]
 			},
+			{
+				path: 'categoria/edit/:id',
+				component: CategoriaInsert,
+				canActivate: [roleGuard(['ADMIN'])]
+			},
 
 			{
 				path: 'proveedor/list',
@@ -56,6 +61,11 @@ export const routes: Routes = [
 				component: ProveedorInsert,
 				canActivate: [roleGuard(['ADMIN'])]
 			},
+			{
+				path: 'proveedor/edit/:id',
+				component: ProveedorInsert,
+				canActivate: [roleGuard(['ADMIN'])]
+			},
 
 			{
 				path: 'producto/list',
@@ -64,6 +74,11 @@ export const routes: Routes = [
 			},
 			{
 				path: 'producto/insert',
+				component: ProductoInsert,
+				canActivate: [roleGuard(['ADMIN', 'ALMACEN'])]
+			},
+			{
+				path: 'producto/edit/:id',
 				component: ProductoInsert,
 				canActivate: [roleGuard(['ADMIN', 'ALMACEN'])]
 			},
