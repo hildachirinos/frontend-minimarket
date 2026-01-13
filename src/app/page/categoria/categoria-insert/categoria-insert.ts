@@ -66,7 +66,7 @@ export class CategoriaInsert implements OnInit {
         let formData = new FormData();
 
         if (this.isEditMode) {
-            formData.append('dto.categoria.id', this.categoriaId!);
+            formData.append('dto.categoria.idCategoria', this.categoriaId!);
         }
 
         formData.append('dto.categoria.nombre', this.nombreFb.value);

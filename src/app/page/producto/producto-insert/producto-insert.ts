@@ -120,7 +120,7 @@ export class ProductoInsert implements OnInit {
         let formData = new FormData();
 
         if (this.isEditMode) {
-            formData.append('dto.producto.id', this.productoId!);
+            formData.append('dto.producto.idProducto', this.productoId!);
         }
 
         formData.append('dto.producto.codigo', this.codigoFb.value);

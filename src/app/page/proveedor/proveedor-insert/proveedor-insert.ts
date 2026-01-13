@@ -78,7 +78,7 @@ export class ProveedorInsert implements OnInit {
         let formData = new FormData();
 
         if (this.isEditMode) {
-            formData.append('dto.proveedor.id', this.proveedorId!);
+            formData.append('dto.proveedor.idProveedor', this.proveedorId!);
         }
 
         formData.append('dto.proveedor.ruc', this.rucFb.value);
